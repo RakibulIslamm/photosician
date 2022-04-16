@@ -25,10 +25,9 @@ const services = [
     },
     {
         id: 4,
-        title: 'Corporate Photography',
-        shortDesc: 'headshots, team portraits, workplaces, conferences and events',
-        desc: 'Corporate photography for amongst others, Marks & Spencer and Soho House, commissioned to take portraits of the people who make up these companies and visit workplaces to capture what makes working for these companies unique.',
-        img: 'https://i.ibb.co/Vq4JgWp/business-people-icon-png-10.png',
+        title: 'Editorial Photography',
+        shortDesc: "Jamie Lau photographs for various magazines, supplements and websites, photographing front covers, features and reviews from portraits for YOU magazine and Waitrose magazine, to blind dates for Metropolitan - Eurostar's on-train publication, to travel features for EasyJet in-flight magazine. Working with writers and editors to ensure the imagery created supports and reflects the story and text written for the the feature. Commissions often illustrate factual stories therefore the integrity of the image is essential with the need to capture the essence of the scene and story being told, inline with the vision of the client.",
+        img: 'https://i.ibb.co/fnFF79p/imgbin-wedding-photography-photographic-studio-advertising-png.png',
         price: 300
     },
 ]

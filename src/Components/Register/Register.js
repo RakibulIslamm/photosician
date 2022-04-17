@@ -1,15 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import GoogleIcon from '../../images/GoogleIcon.png'
+import { Link, useNavigate } from 'react-router-dom';
+import GoogleIcon from '../../images/GoogleIcon.png';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebaseInit';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Register = () => {
+    const [createUserWithEmailAndPassword, createdUser, creatingUser] = useCreateUserWithEmailAndPassword(auth);
+    const [sendEmailVerification, sending, error] = useSendEmailVerification(auth);
+    const [updateProfile] = useUpdateProfile(auth);
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+
+    const handleRegister = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(name, email, password);
+        if (creatingUser) {
+            return 'loading...'
+        }
+        else {
+            await createUserWithEmailAndPassword(email, password);
+            await updateProfile({ displayName: name });
+            await sendEmailVerification();
+            navigate('/');
+            toast('Verification mail sent your email');
+        }
     }
 
     return (
@@ -37,13 +55,14 @@ const Register = () => {
                     </div>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Sign Up
+                            {creatingUser ? 'Loading...' : 'Sign Up'}
                         </button>
                         <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to='/login'>
                             Already have an account
                         </Link>
                     </div>
                 </form>
+                <ToastContainer />
                 <h3 className='text-center'>Or</h3>
                 <div className='py-3'>
                     <button className='flex items-center gap-2 mx-auto px-4 py-2 border border-gray-400 rounded-full'>Google Sign In

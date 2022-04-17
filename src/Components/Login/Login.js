@@ -1,14 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import GoogleIcon from '../../images/GoogleIcon.png'
+import { Link, useNavigate } from 'react-router-dom';
+import GoogleIcon from '../../images/GoogleIcon.png';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebaseInit';
 
 const Login = () => {
+    const [signInWithEmailAndPassword, createdUser, loading] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        if (loading) {
+            return 'Loading...'
+        }
+        else {
+            signInWithEmailAndPassword(email, password);
+            navigate('/')
+        }
+    }
+    if (user) {
+        console.log(user);
     }
 
 
@@ -31,7 +46,7 @@ const Login = () => {
                     </div>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
-                            Sign In
+                            {loading ? 'Loading...' : 'Sign In'}
                         </button>
                         <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to='/register'>
                             Don't have an account?
@@ -40,7 +55,7 @@ const Login = () => {
                 </form>
                 <h3 className='text-center'>Or</h3>
                 <div className='py-3'>
-                    <button className='flex items-center gap-2 mx-auto px-4 py-2 border border-gray-400 rounded-full'>Google Sign In
+                    <button onClick={() => signInWithGoogle()} className='flex items-center gap-2 mx-auto px-4 py-2 border border-gray-400 rounded-full'>Google Sign In
                         <img className='w-5 h-5' src={GoogleIcon} alt="" />
                     </button>
                 </div>

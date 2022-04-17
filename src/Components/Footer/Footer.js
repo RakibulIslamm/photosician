@@ -3,7 +3,9 @@ import React from 'react';
 const Footer = () => {
     return (
         <div>
-            This is footer Page
+            <div className='px-[80px] max-w-[1920px] mx-auto py-8'>
+                This is Footer
+            </div>
         </div>
     );
 };

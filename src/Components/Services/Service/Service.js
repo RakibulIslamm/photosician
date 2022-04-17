@@ -9,7 +9,7 @@ const Service = ({ service }) => {
             <h2 className='text-xl font-semibold text-center pt-3'>{service?.title}</h2>
             <p className='font-light text-sm'>{service?.shortDesc}</p>
             <p className='py-3 font-bold text-lg'>${service?.price}</p>
-            <Link className='px-3 bg-[#ffc8ee]' to={`/checkout/${service?.id}`}>Book Now</Link>
+            <Link className='px-3 bg-[#ffc8ee]' to={`/checkout/${service?.id}`}>Book Now &#62;&#62;</Link>
         </div>
     );
 };

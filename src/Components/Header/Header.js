@@ -1,17 +1,17 @@
-import { signOut } from 'firebase/auth';
 import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import auth from '../../firebase/firebaseInit';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../../images/avatar.png'
 import CustomLink from '../CustomLink/CustomLink';
+import useAuth from '../hooks/useAuth';
 
 const Header = () => {
 
-    const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate()
+    const { user, loading, logOut } = useAuth()
     if (loading) {
         return
     }
+
 
     return (
         <div className='border-b border-gray-200 sticky top-0 bg-white z-50'>
@@ -32,7 +32,7 @@ const Header = () => {
                             <img className='w-8 h-8 rounded-full' src={!user.photoURL ? avatar : user.photoURL} alt="" />
                             <div className='flex items-center gap-4'>
                                 <h5 className='font-[600]'>{user?.displayName}</h5>
-                                <button onClick={() => signOut(auth)} className=' text-red-600 font-bold'>Log Out</button>
+                                <button onClick={() => logOut(navigate)} className=' text-red-600 font-bold'>Log Out</button>
                             </div>
                         </div>
                     }

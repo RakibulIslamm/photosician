@@ -5,7 +5,7 @@ import CustomLink from '../CustomLink/CustomLink';
 
 const Header = () => {
     return (
-        <div className='border-b border-gray-200'>
+        <div className='border-b border-gray-200 sticky top-0 bg-white'>
             <div className='px-[80px] max-w-[1920px] mx-auto flex justify-between items-center'>
                 <Link to='/'>
                     <h1 className='text-3xl font-[Mali] font-semibold'>Photosician</h1>

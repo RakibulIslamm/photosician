@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GoogleIcon from '../../images/GoogleIcon.png';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebaseInit';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Register = () => {
-    const [createUserWithEmailAndPassword, createdUser, creatingUser] = useCreateUserWithEmailAndPassword(auth);
-    const [sendEmailVerification, sending, error] = useSendEmailVerification(auth);
+    const [createUserWithEmailAndPassword, createdUser, creatingUser, error] = useCreateUserWithEmailAndPassword(auth);
+    const [sendEmailVerification] = useSendEmailVerification(auth);
     const [updateProfile] = useUpdateProfile(auth);
-    const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
 
@@ -23,12 +22,23 @@ const Register = () => {
         }
         else {
             await createUserWithEmailAndPassword(email, password);
-            await updateProfile({ displayName: name });
-            await sendEmailVerification();
-            navigate('/');
-            toast('Verification mail sent your email');
+            if (!createdUser) {
+                if (error) {
+                    return
+                }
+            }
+            else {
+                await updateProfile({ displayName: name });
+                await sendEmailVerification().then(() => {
+                    console.log('email sent');
+                    toast.info('Verification email sent!');
+                    navigate('/')
+                })
+            }
         }
     }
+
+    console.log(error);
 
     return (
         <div className='flex justify-center items-center flex-col h-screen min-h-[600px]'>
@@ -47,12 +57,13 @@ const Register = () => {
                         </label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required type="email" name='email' placeholder="example@email.com" />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Password
                         </label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required type="password" name='password' placeholder="*************" />
                     </div>
+                    <p className="mb-6 text-red-600 font-normal text-sm">{error?.message}</p>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                             {creatingUser ? 'Loading...' : 'Sign Up'}
@@ -62,7 +73,6 @@ const Register = () => {
                         </Link>
                     </div>
                 </form>
-                <ToastContainer />
                 <h3 className='text-center'>Or</h3>
                 <div className='py-3'>
                     <button className='flex items-center gap-2 mx-auto px-4 py-2 border border-gray-400 rounded-full'>Google Sign In

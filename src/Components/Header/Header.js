@@ -14,7 +14,7 @@ const Header = () => {
     }
 
     return (
-        <div className='border-b border-gray-200 sticky top-0 bg-white'>
+        <div className='border-b border-gray-200 sticky top-0 bg-white z-50'>
             <div className='px-[80px] max-w-[1920px] mx-auto flex justify-between items-center'>
                 <Link to='/'>
                     <h1 className='text-3xl font-[Mali] font-semibold'>Photosician</h1>
@@ -29,7 +29,7 @@ const Header = () => {
                     </div>
                     {
                         user && <div className='flex items-center gap-2 font-[Mali]'>
-                            <img className='w-8 h-8' src={!user.photoURL ? avatar : user.photoURL} alt="" />
+                            <img className='w-8 h-8 rounded-full' src={!user.photoURL ? avatar : user.photoURL} alt="" />
                             <div className='flex items-center gap-4'>
                                 <h5 className='font-[600]'>{user?.displayName}</h5>
                                 <button onClick={() => signOut(auth)} className=' text-red-600 font-bold'>Log Out</button>

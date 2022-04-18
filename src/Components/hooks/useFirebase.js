@@ -8,7 +8,8 @@ firebaseAuthInit();
 
 const useFirebase = () => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [resetLoading, setResetLoading] = useState(false);
     const [error, setError] = useState('');
 
     const auth = getAuth();
@@ -66,17 +67,16 @@ const useFirebase = () => {
 
     // Password Reset
     const resetPassword = (email) => {
-        setLoading('Loading...');
+        setResetLoading(true);
         sendPasswordResetEmail(auth, email)
             .then(() => {
-                setLoading('Loading...')
                 toast('Reset Password Email Sent!')
             })
             .catch((err) => {
 
             })
             .finally(() => {
-                setLoading('');
+                setResetLoading(false);
             })
     }
 
@@ -127,6 +127,7 @@ const useFirebase = () => {
         googleSignin,
         resetPassword,
         loading,
+        resetLoading,
         error, setError,
         logOut
     }

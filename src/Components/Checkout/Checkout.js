@@ -18,6 +18,24 @@ const Checkout = () => {
         fetchData();
     }, [id]);
 
+    if (!user) {
+        return;
+    }
+
+    console.log(user);
+
+    const handleCheckout = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const phone = e.target.number.value;
+        const address = e.target.address.value;
+        const note = e.target.note.value;
+
+        console.log(name, email, phone, address, note);
+
+    }
+
 
 
     return (
@@ -32,7 +50,7 @@ const Checkout = () => {
                 </div>
                 <div className='w-full'>
                     <h1 className='text-3xl font-bold pb-5'>CheckOut</h1>
-                    <form>
+                    <form onSubmit={handleCheckout}>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                                 Full Name
@@ -61,7 +79,7 @@ const Checkout = () => {
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                                 Note
                             </label>
-                            <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name='number' placeholder="Aditional information" />
+                            <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name='note' placeholder="Aditional information" />
                         </div>
                         <div>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Checkout</button>

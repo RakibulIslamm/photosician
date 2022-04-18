@@ -7,7 +7,7 @@ import useAuth from '../hooks/useAuth';
 
 const Login = () => {
     const [resetEmail, setResetEmail] = useState('');
-    const { login, loading, googleSignin, resetPassword, error } = useAuth()
+    const { login, loading, resetLoading, googleSignin, resetPassword, error } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -54,13 +54,16 @@ const Login = () => {
                     <p className="mb-6 text-red-600 font-normal text-sm">{error}</p>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
-                            {loading ? 'Loading...' : 'Sign In'}
+                            {loading ? <div className='flex items-center gap-2'>
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-r-2 border-gray-300"></div>
+                                Login
+                            </div> : 'Login'}
                         </button>
                         <div>
                             <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to='/register'>
                                 Don't have an account?
                             </Link><br />
-                            <button onClick={handleResetPassword} type='button' >{loading ? 'Loading...' : 'Reset Password'}</button>
+                            <button onClick={handleResetPassword} type='button' >{resetLoading ? 'Loading...' : 'Reset Password'}</button>
                         </div>
                     </div>
                 </form>

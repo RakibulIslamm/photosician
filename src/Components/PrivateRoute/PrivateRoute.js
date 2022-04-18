@@ -6,9 +6,11 @@ const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth()
     let location = useLocation();
 
-    if (loading) {
-        return
+    if (!user || loading) {
+        return;
     }
+
+    console.log(user);
 
     if (!user) {
         return <Navigate to="/login" state={{ from: location }} replace />;

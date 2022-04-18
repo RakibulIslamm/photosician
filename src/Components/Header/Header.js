@@ -8,9 +8,6 @@ const Header = () => {
 
     const navigate = useNavigate()
     const { user, loading, logOut } = useAuth()
-    if (loading) {
-        return
-    }
 
 
     return (

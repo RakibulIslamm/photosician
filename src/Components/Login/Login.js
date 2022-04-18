@@ -25,6 +25,7 @@ const Login = () => {
         login(email, password, location, navigate)
     }
 
+    // Handled Password Reset
     const handleResetPassword = () => {
         if (!resetEmail) {
             toast.warn('Please enter your email')

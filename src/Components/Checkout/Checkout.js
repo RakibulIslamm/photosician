@@ -8,6 +8,7 @@ const Checkout = () => {
     const { title, img, shortDesc, desc, price } = service;
     const { user } = useAuth()
 
+    // Single Service load
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch('/data.json');

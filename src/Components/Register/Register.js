@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleIcon from '../../images/GoogleIcon.png';
-import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 
 const Register = () => {
 
-    const { user, signUp, googleSignin, loading, error } = useAuth()
+    const { signUp, googleSignin, loading, error } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
 
 
+    // Handle User Registration
     const handleRegister = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;

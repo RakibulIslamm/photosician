@@ -8,7 +8,7 @@ firebaseAuthInit();
 
 const useFirebase = () => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [resetLoading, setResetLoading] = useState(false);
     const [error, setError] = useState('');
 

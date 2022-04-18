@@ -1,5 +1,5 @@
 # Photosician (Independent Service Provider Website)
-In this project, I developed a simple Niche Product Website website with react, mongodb and firebase.
+In this project, I developed a Independent Service Provider Website with react and firebase.
 
 Live link: [Visit](https://photosician1.web.app/)
 
@@ -11,4 +11,4 @@ Live link: [Visit](https://photosician1.web.app/)
 - Checkout page is Private, If a user isn't logged in he would not go to this page.
 - If a user try to access checkout page then he will redirect in login page.
 - In Blog page I added 3 question and answer.
-- Technology used: React, Tailwing, react router dom, firebase.
+- Technology used: `tailwind`, `React`, `React Router`, `Firebase`

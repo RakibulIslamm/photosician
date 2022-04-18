@@ -7,7 +7,7 @@ import useAuth from '../hooks/useAuth';
 
 const Login = () => {
     const [resetEmail, setResetEmail] = useState('');
-    const { login, loading, googleSignin, resetPassword, error, setError } = useAuth()
+    const { login, loading, googleSignin, resetPassword, error } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -51,7 +51,7 @@ const Login = () => {
                         </label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required type="password" name='password' placeholder="*************" />
                     </div>
-                    <p className="mb-6 text-red-600 font-normal text-sm">{error?.message}</p>
+                    <p className="mb-6 text-red-600 font-normal text-sm">{error}</p>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
                             {loading ? 'Loading...' : 'Sign In'}
@@ -69,7 +69,6 @@ const Login = () => {
                     <button onClick={handleGoogleSignIn} className='flex items-center gap-2 mx-auto px-4 py-2 border border-gray-400 rounded-full shadow-md'>Google Sign In
                         <img className='w-5 h-5' src={GoogleIcon} alt="" />
                     </button>
-                    <p className="mb-6 text-red-600 font-normal text-sm text-center"></p>
                 </div>
             </div>
         </div>
